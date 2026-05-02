@@ -24,9 +24,14 @@ let tokenExpiresAt: number = 0; // epoch seconds
 // Initialize expiry from the env token if present
 if (cachedToken) {
   try {
-    const payload = JSON.parse(atob(cachedToken.split('.')[1]));
-    if (payload && payload.exp) {
-      tokenExpiresAt = payload.exp;
+    const base64Url = cachedToken.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const payload = JSON.parse(atob(base64));
+    
+    // Some JWTs nest the standard claims under "MapClaims"
+    const exp = payload.exp || (payload.MapClaims && payload.MapClaims.exp);
+    if (exp) {
+      tokenExpiresAt = exp;
     }
   } catch (e) {
     console.warn('[tokenManager] Failed to parse initial token expiry');
