@@ -1,106 +1,83 @@
-# Campus Notification Priority Inbox
+# RA2311056010175 (Frontend)
 
-A React 18 + TypeScript + Vite + Tailwind CSS application that fetches campus notifications from an evaluation service, ranks them by a weighted priority algorithm, and displays them in a clean, responsive Priority Inbox.
+A clean and concise React-based Notification System built with Vite and TypeScript. It securely fetches, prioritizes, and displays real-time notifications with filtering and pagination capabilities.
 
----
+## Screenshots
 
-## ✨ Features
+### API (Postman)
+**1. Register**  
+![Registration](./Screenshots/Registration.png)
 
-- **Priority Algorithm** — notifications ranked by type weight (Placement 3 > Result 2 > Event 1) + recency score
-- **Filter Panel** — filter by type, limit top-N, paginate
-- **Logging Middleware** — structured logs sent to `/logs` API and mirrored to browser console
-- **Loading Skeletons** — polished loading state with animated placeholders
-- **Error Handling** — user-friendly error card with retry
-- **Responsive** — mobile → tablet → desktop (sidebar layout on large screens)
+**2. Auth (Access Token)**  
+![Auth Token](./Screenshots/Access-Token.png)
 
----
+**3. Notifications**  
+![Get Notifications](./Screenshots/get-notification.png)
 
-## 🚀 Getting Started
+### Frontend (UI)
+**UI, Filter, and Pagination**  
+![Notification UI](./Screenshots/Notification-test-ui.png)
 
-### Prerequisites
+## Features
 
-- Node.js ≥ 18
-- npm ≥ 9
+- Fetch notifications using Bearer token
+- Display notifications
+- Unread first sorting
+- Filter by type
+- Pagination
+- Logging middleware
 
-### Install & Run
+## Tech Stack
 
-```bash
-npm install
-npm run dev          # opens http://localhost:3000 automatically
+- React (Vite + TypeScript)
+- Fetch API
+
+## Project Structure
+
+```text
+├── Screenshots/          # Project screenshots
+├── src/
+│   ├── components/       # Reusable UI components (NotificationCard, PriorityInbox, etc.)
+│   ├── services/         # API integration, Token management, and Logger
+│   ├── types/            # TypeScript interfaces
+│   ├── App.tsx           # Main application entry point
+│   └── main.tsx          # React DOM rendering
+├── .env                  # Environment variables (not tracked in git)
+├── index.html            # Vite HTML entry point
+├── package.json          # Dependencies and scripts
+└── vite.config.ts        # Vite configuration
 ```
 
-### Build for Production
+## Setup Instructions
 
-```bash
-npm run build
-npm run preview
-```
+1. **Clone the repo**
+   ```bash
+   git clone <repository-url>
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Create a `.env` file** in the root directory.
+4. **Add `VITE_API_TOKEN` and API configurations** to the `.env` file:
+   ```env
+   VITE_API_BASE_URL=/api
+   VITE_CLIENT_ID=<your-client-id>
+   VITE_CLIENT_SECRET=<your-client-secret>
+   VITE_ACCESS_TOKEN=<your-token-here>
+   ```
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
----
+## API Usage
 
-## 📁 Project Structure
+- **Endpoint:** `http://20.207.122.201/evaluation-service/notifications`
+- **Method:** `GET`
+- **Authorization:** `Bearer <token>`
 
-```
-src/
-├── components/
-│   ├── NotificationCard.tsx   # Single notification with type badge & weight badge
-│   ├── FilterPanel.tsx        # Sidebar filters (type, limit, pagination)
-│   └── PriorityInbox.tsx      # Main container — fetch, rank, render
-├── services/
-│   ├── api.ts                 # fetchNotifications() + priority weight algorithm
-│   └── logger.ts              # Log(stack, level, pkg, message) middleware
-├── types/
-│   └── notification.ts        # TypeScript interfaces
-├── App.tsx                    # Root layout (header, hero, main, footer)
-├── main.tsx                   # ReactDOM entry point
-└── index.css                  # Tailwind CSS v4 import + global resets
-```
+## Notes
 
----
-
-## 🔑 Environment Variables
-
-Copy `.env.example` to `.env` and fill in your credentials:
-
-```env
-VITE_API_BASE_URL=http://20.207.122.201/evaluation-service
-VITE_CLIENT_ID=<your_client_id>
-VITE_CLIENT_SECRET=<your_client_secret>
-VITE_ACCESS_TOKEN=<your_access_token>
-```
-
----
-
-## ⚖️ Priority Algorithm
-
-```
-weight = (3 × is_placement) + (2 × is_result) + (1 × is_event) + recency_score
-```
-
-Where `recency_score ∈ [0, 1]` is normalised across the fetched batch (newest = 1).
-
-See **notification_system_design.md** for detailed examples.
-
----
-
-## 🪵 Logging Middleware
-
-`logger.ts` exports a single function:
-
-```ts
-Log(stack: 'frontend', level: LogLevel, pkg: string, message: string): Promise<void>
-```
-
-- Mirrors to `console` immediately
-- POSTs to `POST /logs` (fire-and-forget, never throws)
-- Integrated at: fetch start, fetch success, fetch error, filter apply, mount/unmount
-
----
-
-## 🎨 Colour Guide
-
-| Type      | Colour    |
-|-----------|-----------|
-| Placement | `#10B981` |
-| Result    | `#3B82F6` |
-| Event     | `#8B5CF6` |
+- Token not hardcoded for security
+- Must be added via `.env`

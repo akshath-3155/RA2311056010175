@@ -18,9 +18,20 @@ interface TokenResponse {
   expires_in: number; // Unix timestamp (seconds) when token expires
 }
 
-// In-memory cache
 let cachedToken: string | null = import.meta.env.VITE_ACCESS_TOKEN || null;
 let tokenExpiresAt: number = 0; // epoch seconds
+
+// Initialize expiry from the env token if present
+if (cachedToken) {
+  try {
+    const payload = JSON.parse(atob(cachedToken.split('.')[1]));
+    if (payload && payload.exp) {
+      tokenExpiresAt = payload.exp;
+    }
+  } catch (e) {
+    console.warn('[tokenManager] Failed to parse initial token expiry');
+  }
+}
 
 /** Return true if the cached token is still valid (with 60s safety margin) */
 function isTokenValid(): boolean {

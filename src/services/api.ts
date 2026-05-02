@@ -22,6 +22,7 @@ import type {
   Notification,
   RankedNotification,
   FetchNotificationsParams,
+  NotificationsResponse,
 } from '../types/notification';
 import { Log } from './logger';
 import { getToken } from './tokenManager';
@@ -41,15 +42,15 @@ const EVENT_WEIGHT = 1;
 function computeRecencyScores(notifications: Notification[]): Map<string, number> {
   if (notifications.length === 0) return new Map();
 
-  const timestamps = notifications.map(n => new Date(n.createdAt).getTime());
+  const timestamps = notifications.map(n => new Date(n.Timestamp).getTime());
   const minTs = Math.min(...timestamps);
   const maxTs = Math.max(...timestamps);
   const range = maxTs - minTs || 1; // avoid division by zero
 
   const scores = new Map<string, number>();
   notifications.forEach(n => {
-    const ts = new Date(n.createdAt).getTime();
-    scores.set(n.id, (ts - minTs) / range);
+    const ts = new Date(n.Timestamp).getTime();
+    scores.set(n.ID, (ts - minTs) / range);
   });
   return scores;
 }
@@ -58,9 +59,9 @@ function computeRecencyScores(notifications: Notification[]): Map<string, number
  * Compute the final priority weight for a single notification.
  */
 function computeWeight(n: Notification, recency: number): number {
-  const isPlacement = n.notification_type === 'Placement' ? 1 : 0;
-  const isResult    = n.notification_type === 'Result'    ? 1 : 0;
-  const isEvent     = n.notification_type === 'Event'     ? 1 : 0;
+  const isPlacement = n.Type === 'Placement' ? 1 : 0;
+  const isResult    = n.Type === 'Result'    ? 1 : 0;
+  const isEvent     = n.Type === 'Event'     ? 1 : 0;
 
   return (
     PLACEMENT_WEIGHT * isPlacement +
@@ -92,7 +93,7 @@ export async function fetchNotifications(
     // Auto-refresh token if expired
     const token = await getToken();
 
-    const response = await axios.get<Notification[]>(`${BASE_URL}/notifications`, {
+    const response = await axios.get<NotificationsResponse>(`${BASE_URL}/notifications`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -101,7 +102,7 @@ export async function fetchNotifications(
       timeout: 10000,
     });
 
-    const raw: Notification[] = response.data;
+    const raw: Notification[] = response.data.notifications || [];
     await Log('frontend', 'info', 'api', `Received ${raw.length} notifications`);
 
     // Compute recency scores across the full result set
@@ -111,7 +112,7 @@ export async function fetchNotifications(
     const ranked: RankedNotification[] = raw
       .map(n => ({
         ...n,
-        weight: computeWeight(n, recencyMap.get(n.id) ?? 0),
+        weight: computeWeight(n, recencyMap.get(n.ID) ?? 0),
       }))
       .sort((a, b) => b.weight - a.weight);
 

@@ -60,7 +60,7 @@ interface NotificationCardProps {
 }
 
 export const NotificationCard: React.FC<NotificationCardProps> = ({ notification }) => {
-  const { id, notification_type, message, createdAt, weight } = notification;
+  const { ID: id, Type: notification_type, Message: message, Timestamp: createdAt, weight } = notification;
   const cfg = TYPE_CONFIG[notification_type] ?? TYPE_CONFIG.Event;
 
   return (

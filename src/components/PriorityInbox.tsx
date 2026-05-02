@@ -174,7 +174,7 @@ export const PriorityInbox: React.FC = () => {
                 Showing {notifications.length} notification{notifications.length !== 1 ? 's' : ''}
               </p>
               {notifications.map(n => (
-                <NotificationCard key={n.id} notification={n} />
+                <NotificationCard key={n.ID} notification={n} />
               ))}
             </>
           )}
