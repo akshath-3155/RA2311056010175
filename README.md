@@ -50,26 +50,27 @@ A clean and concise React-based Notification System built with Vite and TypeScri
 
 ## Setup Instructions
 
-1. **Clone the repo**
-   ```bash
-   git clone <repository-url>
-   ```
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-3. **Create a `.env` file** in the root directory.
-4. **Add `VITE_API_TOKEN` and API configurations** to the `.env` file:
-   ```env
-   VITE_API_BASE_URL=/api
-   VITE_CLIENT_ID=<your-client-id>
-   VITE_CLIENT_SECRET=<your-client-secret>
-   VITE_ACCESS_TOKEN=<your-token-here>
-   ```
-5. **Start the development server**
-   ```bash
-   npm run dev
-   ```
+To get this running on your local machine, just clone the repo and run `npm install` to grab all the dependencies. After that, create a `.env` file in the root folder and add your access token inside it like this: `VITE_API_TOKEN=your_token_here`. Once that's done, you can just run `npm run dev` and it will start the local development server.
+
+## How I Created the Solution
+
+Step 1:
+I used Postman to register and got the client ID and client secret, then used them to generate the access token.
+
+Step 2:
+I created the basic folder structure for the frontend using React, Vite, and TypeScript.
+
+Step 3:
+I built the main components like NotificationList, NotificationCard, and FilterBar to display and manage the data.
+
+Step 4:
+I integrated the API using the access token and connected it to the frontend to fetch notifications.
+
+Step 5:
+I added features like filtering, sorting unread notifications first, and pagination.
+
+Step 6:
+I implemented a simple logging middleware to track API calls and actions.
 
 ## API Usage
 
