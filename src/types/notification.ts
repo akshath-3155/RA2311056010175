@@ -1,4 +1,4 @@
-// Notification type definitions for the Campus Priority Inbox
+﻿// Notification type definitions for the Campus Priority Inbox
 
 export type NotificationType = 'Event' | 'Result' | 'Placement';
 
@@ -40,3 +40,4 @@ export interface FilterState {
   page: number;
   notification_type: NotificationType | '';
 }
+

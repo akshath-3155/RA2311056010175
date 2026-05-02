@@ -1,4 +1,4 @@
-/**
+﻿/**
  * FilterPanel.tsx
  *
  * Provides controls for:
@@ -33,7 +33,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
   totalPages,
   onApply,
 }) => {
-  // Local draft — only committed on "Apply"
+  // Local draft  only committed on "Apply"
   const [draft, setDraft] = useState<FilterState>(filters);
 
   const handleApply = () => {
@@ -68,7 +68,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
         Filters
       </h2>
 
-      {/* ── Type filter ── */}
+      {/*  Type filter  */}
       <div className="flex flex-col gap-1.5">
         <label htmlFor="filter-type" className="text-xs font-medium text-gray-500">
           Notification Type
@@ -93,7 +93,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
         </select>
       </div>
 
-      {/* ── Limit (top-n) ── */}
+      {/*  Limit (top-n)  */}
       <div className="flex flex-col gap-1.5">
         <label htmlFor="filter-limit" className="text-xs font-medium text-gray-500">
           Show top N
@@ -111,7 +111,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
         />
       </div>
 
-      {/* ── Pagination ── */}
+      {/*  Pagination  */}
       <div className="flex flex-col gap-1.5">
         <span className="text-xs font-medium text-gray-500">Page</span>
         <div className="flex items-center gap-2">
@@ -126,7 +126,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
               transition
             "
           >
-            ← Prev
+             Prev
           </button>
           <span className="min-w-[3rem] text-center text-sm font-semibold text-gray-800">
             {draft.page}{totalPages > 0 ? `/${totalPages}` : ''}
@@ -142,12 +142,12 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
               transition
             "
           >
-            Next →
+            Next 
           </button>
         </div>
       </div>
 
-      {/* ── Actions ── */}
+      {/*  Actions  */}
       <div className="flex flex-col gap-2 pt-1">
         <button
           id="apply-filters"
@@ -177,3 +177,4 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
     </aside>
   );
 };
+

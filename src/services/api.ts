@@ -1,5 +1,5 @@
-/**
- * api.ts — Notification API Service
+﻿/**
+ * api.ts  Notification API Service
  *
  * Provides fetchNotifications() which:
  *   1. Obtains a valid Bearer token (auto-refreshes if expired)
@@ -8,13 +8,13 @@
  *   4. Returns notifications sorted by weight (descending)
  *
  * Priority Algorithm:
- *   weight = (placement_weight × is_placement)
- *          + (result_weight    × is_result)
- *          + (event_weight     × is_event)
+ *   weight = (placement_weight  is_placement)
+ *          + (result_weight     is_result)
+ *          + (event_weight      is_event)
  *          + recency_score
  *
  * Weights:  Placement = 3 | Result = 2 | Event = 1
- * Recency:  Normalised score in [0, 1] — newest notification = 1
+ * Recency:  Normalised score in [0, 1]  newest notification = 1
  */
 
 import axios from 'axios';
@@ -29,7 +29,7 @@ import { getToken } from './tokenManager';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
-// ── Priority constants ───────────────────────────────────────────────────────
+//  Priority constants 
 const PLACEMENT_WEIGHT = 3;
 const RESULT_WEIGHT = 2;
 const EVENT_WEIGHT = 1;
@@ -80,7 +80,7 @@ export async function fetchNotifications(
 ): Promise<RankedNotification[]> {
   await Log('frontend', 'info', 'api', `Fetching notifications with params: ${JSON.stringify(params)}`);
 
-  // Build query string — omit empty notification_type
+  // Build query string  omit empty notification_type
   const query: Record<string, string | number> = {
     limit: params.limit,
     page: params.page,
@@ -123,3 +123,4 @@ export async function fetchNotifications(
     throw err;
   }
 }
+

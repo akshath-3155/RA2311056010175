@@ -1,5 +1,5 @@
-/**
- * tokenManager.ts — Automatic Token Refresh
+﻿/**
+ * tokenManager.ts  Automatic Token Refresh
  *
  * Calls POST /evaluation-service/auth with clientID + clientSecret
  * to get a fresh Bearer token whenever the cached one is missing or expired.
@@ -73,3 +73,4 @@ export async function getToken(): Promise<string> {
 
   return cachedToken;
 }
+

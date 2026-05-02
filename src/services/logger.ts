@@ -1,5 +1,5 @@
-/**
- * logger.ts — Logging Middleware
+﻿/**
+ * logger.ts  Logging Middleware
  *
  * Signature: Log(stack, level, package, message)
  *
@@ -18,7 +18,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 /**
  * Log a structured message.
  *
- * @param stack   Originating runtime layer — always "frontend" for this app.
+ * @param stack   Originating runtime layer  always "frontend" for this app.
  * @param level   Severity: "debug" | "info" | "warn" | "error" | "fatal"
  * @param pkg     Component or function name where the log originates.
  * @param message Human-readable description of the event.
@@ -31,17 +31,17 @@ export const Log = async (
 ): Promise<void> => {
   const timestamp = new Date().toISOString();
 
-  // ── Console mirror ──────────────────────────────────────────────────────
-  const formatted = `[${timestamp}] [${level.toUpperCase()}] [${pkg}] [${stack}] — ${message}`;
+  //  Console mirror 
+  const formatted = `[${timestamp}] [${level.toUpperCase()}] [${pkg}] [${stack}]  ${message}`;
   switch (level) {
     case 'debug': console.debug(formatted); break;
     case 'info':  console.info(formatted);  break;
     case 'warn':  console.warn(formatted);  break;
     case 'error': console.error(formatted); break;
-    case 'fatal': console.error(`💀 FATAL: ${formatted}`); break;
+    case 'fatal': console.error(` FATAL: ${formatted}`); break;
   }
 
-  // ── Remote log API ──────────────────────────────────────────────────────
+  //  Remote log API 
   // Fire-and-forget; never throw so logging never breaks the UI.
   try {
     const token = await getToken();
@@ -61,3 +61,4 @@ export const Log = async (
     console.warn(`[logger] Failed to send log to remote endpoint (level=${level})`);
   }
 };
+

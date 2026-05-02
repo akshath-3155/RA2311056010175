@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PriorityInbox.tsx
  *
  * Main container component that:
@@ -15,7 +15,7 @@ import { Log } from '../services/logger';
 import { NotificationCard } from './NotificationCard';
 import { FilterPanel } from './FilterPanel';
 
-// ── Loading skeleton ─────────────────────────────────────────────────────────
+//  Loading skeleton 
 const SkeletonCard: React.FC = () => (
   <div className="bg-white rounded-xl border border-gray-100 px-5 py-4 shadow-sm animate-pulse">
     <div className="flex justify-between mb-3">
@@ -33,7 +33,7 @@ const SkeletonCard: React.FC = () => (
   </div>
 );
 
-// ── Legend chips ─────────────────────────────────────────────────────────────
+//  Legend chips 
 const LEGEND = [
   { label: 'Placement', color: 'bg-[#10B981]' },
   { label: 'Result', color: 'bg-[#3B82F6]' },
@@ -93,7 +93,7 @@ export const PriorityInbox: React.FC = () => {
 
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-8">
-      {/* ── Page description row ── */}
+      {/*  Page description row  */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2 flex-wrap">
           {LEGEND.map(l => (
@@ -104,11 +104,11 @@ export const PriorityInbox: React.FC = () => {
           ))}
         </div>
         <span className="ml-auto text-xs text-gray-400">
-          Sorted by priority weight ↓
+          Sorted by priority weight 
         </span>
       </div>
 
-      {/* ── Main grid: filter sidebar + notification list ── */}
+      {/*  Main grid: filter sidebar + notification list  */}
       <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6">
 
         {/* Sidebar */}
@@ -123,7 +123,7 @@ export const PriorityInbox: React.FC = () => {
         {/* Notification list */}
         <div className="flex flex-col gap-4">
 
-          {/* ── Loading skeletons ── */}
+          {/*  Loading skeletons  */}
           {loading && (
             <div className="flex flex-col gap-4" aria-busy="true" aria-label="Loading notifications">
               {Array.from({ length: 4 }).map((_, i) => (
@@ -132,7 +132,7 @@ export const PriorityInbox: React.FC = () => {
             </div>
           )}
 
-          {/* ── Error state ── */}
+          {/*  Error state  */}
           {!loading && error && (
             <div
               role="alert"
@@ -142,7 +142,7 @@ export const PriorityInbox: React.FC = () => {
                 px-5 py-4 text-sm text-red-700
               "
             >
-              <span className="text-lg leading-none">⚠️</span>
+              <span className="text-lg leading-none"></span>
               <div>
                 <p className="font-semibold">Something went wrong</p>
                 <p className="mt-1 text-xs text-red-600">{error}</p>
@@ -156,10 +156,10 @@ export const PriorityInbox: React.FC = () => {
             </div>
           )}
 
-          {/* ── Empty state ── */}
+          {/*  Empty state  */}
           {!loading && !error && notifications.length === 0 && (
             <div className="flex flex-col items-center justify-center gap-3 py-20 text-center">
-              <span className="text-5xl">📭</span>
+              <span className="text-5xl"></span>
               <p className="text-base font-semibold text-gray-600">No notifications found</p>
               <p className="text-sm text-gray-400">
                 Try adjusting your filters or check back later.
@@ -167,7 +167,7 @@ export const PriorityInbox: React.FC = () => {
             </div>
           )}
 
-          {/* ── Notification cards ── */}
+          {/*  Notification cards  */}
           {!loading && !error && notifications.length > 0 && (
             <>
               <p className="text-xs text-gray-400 font-medium">
@@ -183,3 +183,4 @@ export const PriorityInbox: React.FC = () => {
     </section>
   );
 };
+

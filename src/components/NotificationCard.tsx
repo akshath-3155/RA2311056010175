@@ -1,4 +1,4 @@
-/**
+﻿/**
  * NotificationCard.tsx
  *
  * Renders a single prioritised notification with:
@@ -10,7 +10,7 @@
 import React from 'react';
 import type { RankedNotification, NotificationType } from '../types/notification';
 
-// ── Colour palette per notification type ────────────────────────────────────
+//  Colour palette per notification type 
 const TYPE_CONFIG: Record<
   NotificationType,
   { border: string; badge: string; badgeText: string; dot: string }
@@ -75,7 +75,7 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({ notification
         transition-shadow duration-200
       `}
     >
-      {/* ── Header row ── */}
+      {/*  Header row  */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         {/* Type badge */}
         <span
@@ -100,14 +100,14 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({ notification
             ${weightBadgeClass(weight)}
           `}
         >
-          ⚡ {weight.toFixed(2)}
+           {weight.toFixed(2)}
         </span>
       </div>
 
-      {/* ── Message ── */}
+      {/*  Message  */}
       <p className="text-sm text-gray-800 leading-relaxed">{message}</p>
 
-      {/* ── Footer row ── */}
+      {/*  Footer row  */}
       <div className="flex items-center justify-between text-xs text-gray-400">
         <span className="font-mono">ID: {id}</span>
         <time dateTime={createdAt}>{formatDate(createdAt)}</time>
@@ -115,3 +115,4 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({ notification
     </article>
   );
 };
+
